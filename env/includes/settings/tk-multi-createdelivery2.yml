@@ -1,0 +1,151 @@
+# BE SURE TO COPY ANY NECESSARY CHANGES TO /env/vendor.yml
+#
+# Create Delivery app
+#
+
+includes:
+- ../app_locations.yml
+
+# Define a Yaml anchor used below to share settings with
+settings.tk-multi-createdelivery2.project: &create_delivery2
+  location: "@apps.tk-multi-createdelivery2.location"
+
+  display_name: Create Delivery2
+
+  # App mode, either create_delivery or import_media
+  app_mode: create_delivery
+
+  # List of columns to be displayed in the UI.
+  #
+  # The following built-in columns are available:
+  # NAME - Version name.
+  # FORMATS - Detected publish types from media files.
+  # EXISTS - Whether or not a version with the given name already exists in Shotgun.
+  # STEREO - Whether or not some stereo input was detected.
+  # PATH TO FRAMES - The value which will be used to populate sg_path_to_frames Version field.
+  # PATH TO MOVIE - The value which will be used to populate sg_path_to_movie Version field.
+  # VERSION NUMBER - The version number extracted from the version name.
+  # ORDER - For debug purposes: displays the version order in the playlist, which is otherwise
+  # displayed in the vertical header on the left.
+  # MESSAGE - For debug purposes: displays runtime messages, which are otherwise
+  # displayed as a tooltip on the name column.
+  # TEMPLATE KEYS - For debug purposes: displays the template and its resolved keys used when
+  # parsing the version name.
+  #
+  # Note: it's possible to also include fields from versions via the separate version_field_columns
+  # setting alongside these columns.
+  #
+  # Default:
+  # [NAME, FORMATS, EXISTS, STEREO]
+  columns: [NAME, FORMATS, EXISTS]
+
+  # List of file extensions to ignore. Dragging files with these extensions into the app will
+  # have no effect.
+  # ignored_extensions: [tmp, log, db, txt, yml]
+
+  # List of fields from those specified in version_field_columns that must be given a value
+  # in order for the app to proceed to import the version
+  mandatory_fields: [entity, sg_version_type]
+
+  # List of formats from those defined in tk-framework-delivery_v2:delivery_formats:name
+  # which will update the version's path to movie and be transcoded during import
+  movie_review_formats: [movie, editorial, image]
+
+  # Template to use to parse the version name from the file name
+  path_template: version_file_name
+
+  # Template to use to generate the name of the playlist that will be created during
+  # import.
+  playlist_name_template: playlist_name_template
+
+  # List of dictionaries of entities to allow for particular fields
+  # Each dictionary has two keys:
+  #   field_name: The name of the field to apply the restriction to
+  #   entity_types: List of entity types to allow in the field
+  restrict_field_entity_types:
+  - field_name: entity
+    entity_types: [Shot, Sequence, Asset]
+
+  # List of fields on the Version entity that will be available to edit in the UI prior to
+  # import
+  # Note: multi-entity type fields are not supported
+  version_field_columns: [entity, sg_version_type, description]
+
+  # List of templates to use when attempting to parse tokens from the version name,
+  # such as for the version number or linked entity. The order is important, the
+  # first matching template is used.
+  version_name_templates:
+  - shot_version_name
+  - shot_version_name_generic
+  - asset_version_name
+  - version_name_generic
+
+  # A template defining the destination path for deliveries. Not used by all
+  # delivery transfer modes.
+  delivery_root_path_template: delivery_root_path
+
+  # Default value to define who the delivery will be "sent" to (updates addressings_to).
+  delivery_to: ["VFX Production"]
+
+  # Default value for the delivery type
+  delivery_type: Vendor Submission
+
+  # When set to true, checksums will be generated for all files to be delivered
+  # Note: this can be a time-consuming process, so the preference may be to set
+  # this to false
+  enable_delivery_checksums: true
+
+  # Ordered list of dictionaries of tokens used to detect different formats
+  #
+  # Note: the order of the dictionaries will determine which match is attempted
+  # first. A single file will only be matched to one format. If no suitable match
+  # is found, the format is detected based on matching
+  # tk-framework-delivery:delivery_formats:extensions
+  #
+  # format_name: Format from those defined in tk-framework-delivery:delivery_formats:name
+  #              which will be used when the corresponding tokens are matched
+  # token_type: Whether the token is a directory or template key. Possible values
+  #             are 'directory' or `template_key`
+  # token: A string to match in the path to the file, or a template to extract a token
+  #        from the filename.
+
+  format_token_mappings:
+  - format_name: editorial
+    token_type: directory
+    token: dnxhd
+  - format_name: h264
+    token_type: template_key
+    token: h264_token
+  - format_name: matte
+    token_type: template_key
+    token: matte_token
+
+  # An SG Project field name holding the secret key for the Aspera Files client
+  sg_aspera_files_secret_field: sg_aspera_files_cd_secret
+
+  # Aspera Files client public id
+  aspera_files_client_id: BpoPR5gMJw
+
+  # An SG Project field name holding the secret key for the Box client
+  # Default: sg_box_secret_field: sg_box_create_delivery_secret
+
+  # Validation hooks: allow specific formats to be validated. Check validation
+  # hooks docstrings for their settings.
+#  validation_hooks:
+#  - name: Movie Checker
+#    hook: "{self}/validate_movie.py"
+#    settings:
+#        fps: 23.98
+#        resolution: "1280x720"
+#        codec: "prores"
+#        bit_depth: 10
+#        show_value_columns: false
+
+# Create delivery2 for vendors: re-use settings above but overrides a couple of
+# them
+settings.tk-multi-createdelivery2.vendor:
+  # Inject the anchors defined above
+  <<: *create_delivery2
+  # And tweak any setting
+  enabled_transfer_types: [aspera, sftp, sneakernet]
+

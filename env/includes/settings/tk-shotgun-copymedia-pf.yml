@@ -1,0 +1,14 @@
+#
+# Copy Media app (configured for Published Files)
+#
+includes:
+- ../app_locations.yml
+
+settings.tk-shotgun-copymedia-pf:
+  location: "@apps.tk-shotgun-copymedia-pf.location"
+  display_name: Copy Published Files...
+  custom_file_structure_templates: []
+  path_fields: [sg_path_to_frames, sg_path_to_movie]
+  path_root_templates: [delivery_root]
+  use_published_files: true
+  use_smart_fields: true

@@ -1,0 +1,188 @@
+#
+# Ingest Delivery app
+#
+includes:
+- ../app_locations.yml
+
+settings.tk-multi-ingestdelivery:
+  location: "@apps.tk-multi-ingestdelivery.location"
+
+  # Template corresponding to the location of Aspera-delivered files.
+  # If no template is provided,  then the delivery will be downloaded from the
+  # remote Aspera server. The user will have to provide an account name and a
+  # password in a login window.
+  aspera_root:
+
+  # Number of seconds to wait before looking for new deliveries when in auto mode
+  auto_ingest_interval: 30.0
+
+  # Template to use for locating delivered files when the delivery's sg_upload_url
+  # is not set, or as a temporary location for remote downloads prior to ingest
+  # Note: If the template does not resolve to a full path, e.g. starting with a /,
+  # a LocalStorage with be prepended to it.
+  delivery_download_folder_template: delivery_download_folder
+
+  # Path resolver hook (python file) to use (which will determine how template paths
+  # are resolved).
+  hook_resolve_paths: '{self}/path_resolver.py'
+
+  # Ordered list of dictionaries of formats used to determine which templates to use
+  # for copying files
+  #
+  # Note: the order of the dictionaries will determine which match is attempted
+  # first. Multiple matches will result in copies to multiple locations. If no suitable match
+  # is found, the file will not be copied.
+  #
+  # entity_type: Entity type the file corresponds to.
+  # formats: List of formats from those defined in tk-framework-delivery:delivery_formats:name
+  #          which the file corresponds to.
+  # template: Template to use for copying matching files
+  #
+  ingest_templates:
+  - entity_type: Shot
+    formats: [exr, dpx, matte, image]
+    template: delivery_shot_ingest_imgseq
+  - entity_type: Shot
+    formats: [exr, dpx, matte, image]
+    template: delivery_shot_ingest_imgseq_stereo
+  - entity_type: Shot
+    formats: [movie, image, h264, element, lut, other]
+    template: delivery_shot_ingest_single
+  - entity_type: Shot
+    formats: [movie, image, other]
+    template: delivery_shot_ingest_single_stereo
+
+  # Editorial copy, uncomment to enable it
+#  - entity_type: Shot
+#    formats: [editorial]
+#    template: delivery_editorial_ingest
+#  - entity_type: Shot
+#    formats: [editorial]
+#    template: delivery_editorial_ingest_stereo
+
+  - entity_type: Asset
+    formats: [exr, dpx, matte, image]
+    template: delivery_asset_ingest_imgseq
+  - entity_type: Asset
+    formats: [exr, dpx, matte, image]
+    template: delivery_asset_ingest_imgseq_stereo
+  - entity_type: Asset
+    formats: [movie, image, h264, element, lut, other]
+    template: delivery_asset_ingest_single
+  - entity_type: Asset
+    formats: [movie, image, other]
+    template: delivery_asset_ingest_single_stereo
+
+  # Editorial copy, uncomment to enable it
+#  - entity_type: Asset
+#    formats: [editorial, movie]
+#    template: delivery_editorial_ingest
+#  - entity_type: Asset
+#    formats: [editorial]
+#    template: delivery_editorial_ingest_stereo
+
+  - entity_type: Sequence
+    formats: [image]
+    template: delivery_ingest_imgseq
+  - entity_type: Sequence
+    formats: [image]
+    template: delivery_ingest_imgseq_stereo
+  - entity_type: Sequence
+    formats: [movie, image, other]
+    template: delivery_ingest_single
+  - entity_type: Sequence
+    formats: [movie, image, other]
+    template: delivery_ingest_single_stereo
+
+  # Editorial copy, uncomment to enable it
+#  - entity_type: Sequence
+#    formats: [editorial]
+#    template: delivery_editorial_ingest
+#  - entity_type: Sequence
+#    formats: [editorial]
+#    template: delivery_editorial_ingest_stereo
+
+  # List of dictionaries of transcoders to use with particular formats.
+  # https://github.com/shotgunsoftware/tk-framework-transcoding/wiki/Documentation#available-transcoders
+  # formats: List of formats to use with the paired transcoders
+  #          Currently supported: mp4, webm, filmstrip, thumbnail, movie_image
+  # transcoder: Transcoder to use for specified formats, currently supported: ffmpeg
+  local_transcoding:
+  - formats: [mp4, webm, filmstrip, thumbnail, movie_image]
+    transcoder: ffmpeg
+
+  # Maximum number of threads used by the app. If ommited or set to 0
+  # or -1, the app relies on QThreadPool default value.
+  max_download_thread_count: -1
+
+  # Maximum number of deliveries which can be queued up for processing
+  # when in auto ingest mode.
+  max_queued_count: 2
+
+  # Maximum number of threads to use by the app. If not provided, the app
+  # will use as many threads as possible.
+  # max_thread_count: 4
+
+  # Pipeline step to use when building ingestion paths
+  pipeline_step: deliveries
+
+  # Template for location to delivered files when used with a login which sees all
+  # folders. Typically, vendors only see their own folder, and their remote home
+  # directory does not include their vendor name, so deliveries upload url do not
+  # include vendor names.
+  # On the the other hand, clients need to see all vendors folders, so paths on the
+  # remote server are different from the ones seen by vendors.
+  # If remote_aspera_root is set and not null, the template it points to will be
+  # evaluated before downloading deliveries from a remote Aspera server, and the
+  # result will be prepended to the file part of the upload_url.
+  # For example, if remote_aspera_root is defined with vendors/{sg_vendor_name},
+  # and the upload url is
+  # fasp://my.server.com:33001/From/2015_03_30/2015_03_30_neatvfx_v01, the resulting
+  # url will be
+  # fasp://my.server.com:33001/vendors/{sg_vendor_name}/From/2015_03_30/2015_03_30_steph_v01,
+  # with sg_vendor_name replaced by the actual vendor name.
+  # If remote_aspera_root is set to null, the original upload url is used unchanged.
+  #
+  remote_aspera_root:
+
+  # Template for location to delivered files when used with a login which sees all
+  # folders. Typically, vendors only see their own folder, and their remote home
+  # directory does not include their vendor name, so deliveries upload url do not
+  # include vendor names.
+  # On the the other hand, clients need to see all vendors folders, so paths on the
+  # remote server are different from the ones seen by vendors.
+  # If remote_sftp_root is set and not null, the template it points to will be
+  # evaluated before downloading deliveries from a remote FTP server, and the
+  # result will be prepended to the file part of the upload_url.
+  # For example, if remote_sftp_root is defined with vendors/{sg_vendor_name},
+  # and the upload url is
+  # sftp://my.server.com:22/From/2015_03_30/2015_03_30_neatvfx_v01, the resulting
+  # url will be
+  # sftp://my.server.com:22/vendors/{sg_vendor_name}/From/2015_03_30/2015_03_30_steph_v01,
+  # with sg_vendor_name replaced by the actual vendor name.
+  # If remote_sftp_root is set to null, the original upload url is used unchanged.
+  remote_sftp_root:
+
+  # Template corresponding to the location of FTP-delivered files.
+  # If no template is provided,  then the delivery will be downloaded from the
+  # remote FTP server. The user will have to provide an account name and a
+  # password in a login window.
+  # Note: if location is the same as for Aspera deliveries, use the
+  # aspera_root template here.
+  sftp_root:
+
+  # Ordered list of formats from those defined in
+  # tk-framework-delivery:delivery_formats:name to determine the preference
+  # for using the format for transcoded media.
+  # If the first format in the list is found, that will be used for transcoded
+  # media. Otherwise the next item will be used and so on.
+  # Newly added formats will be transcoded if they are higher in the list than
+  # any previously transcoded formats.
+  transcoding_priority: [movie, h264, editorial, image]
+
+  # Aspera Files public client key
+  aspera_files_client_id: BpoqIHNLNA
+
+  # An SG Project field name holding the secret key for the Aspera Files client
+  # default: sg_aspera_files_secret_field: sg_aspera_files_ingest_delivery_secret
+  sg_aspera_files_secret_field: sg_aspera_files_id_secret

@@ -14,6 +14,9 @@
 includes:
 - ../app_locations.yml
 - ../engine_locations.yml
+- ./tk-multi-createdelivery2.yml
+- ./tk-multi-importmedia.yml
+- ./tk-multi-ingestdelivery.yml
 - ./tk-multi-launchapp.yml
 - ./tk-multi-publish2.yml
 - ./tk-multi-screeningroom.yml
@@ -45,6 +48,9 @@ settings.tk-shell.project:
   apps:
     tk-multi-demo:
       location: "@apps.tk-multi-demo.location"
+    tk-multi-createdelivery2: "@settings.tk-multi-createdelivery2.project"
+    tk-multi-importmedia: "@settings.tk-multi-importmedia"
+    tk-multi-ingestdelivery: "@settings.tk-multi-ingestdelivery"
     tk-multi-launchapp: '@settings.tk-multi-launchapp'
     tk-multi-launchhiero: '@settings.tk-multi-launchapp.hiero'
     tk-multi-launchmari: '@settings.tk-multi-launchapp.mari'
@@ -78,4 +84,15 @@ settings.tk-shell.shot_step:
     tk-multi-launchmotionbuilder: '@settings.tk-multi-launchapp.motionbuilder'
     tk-multi-publish2: "@settings.tk-multi-publish2.standalone"
     tk-multi-screeningroom: '@settings.tk-multi-screeningroom.rv'
+  location: '@engines.tk-shell.location'
+
+# vendor
+settings.tk-shell.vendor:
+  apps:
+    tk-multi-createdelivery2: "@settings.tk-multi-createdelivery2.vendor"
+  location: '@engines.tk-shell.location'
+
+# site_vendor
+settings.tk-shell.site_vendor:
+  apps:
   location: '@engines.tk-shell.location'

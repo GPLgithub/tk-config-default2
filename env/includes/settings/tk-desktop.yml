@@ -14,6 +14,9 @@
 includes:
 - ../app_locations.yml
 - ../engine_locations.yml
+- ./tk-multi-createdelivery2.yml
+- ./tk-multi-importmedia.yml
+- ./tk-multi-ingestdelivery.yml
 - ./tk-multi-launchapp.yml
 - ./tk-multi-publish2.yml
 - ./tk-multi-screeningroom.yml
@@ -23,6 +26,15 @@ includes:
 # site
 settings.tk-desktop.site:
   apps:
+  location: "@engines.tk-desktop.location"
+
+settings.tk-desktop.site_vendor:
+  apps:
+  location: "@engines.tk-desktop.location"
+
+settings.tk-desktop.vendor:
+  apps:
+    tk-multi-createdelivery2: "@settings.tk-multi-createdelivery2.vendor"
   location: "@engines.tk-desktop.location"
 
 
@@ -39,7 +51,22 @@ settings.tk-desktop.project:
     tk-multi-launchmotionbuilder: "@settings.tk-multi-launchapp.motionbuilder"
     tk-multi-publish2: "@settings.tk-multi-publish2.standalone"
     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
+    tk-multi-createdelivery2: "@settings.tk-multi-createdelivery2.project"
+    tk-multi-importmedia: "@settings.tk-multi-importmedia"
+    tk-multi-ingestdelivery: "@settings.tk-multi-ingestdelivery"
+
+  collapse_rules:
+    - {button_label: $app, match: Launch $app, menu_label: None}
+
   groups:
+  - matches:
+    - '*Delivery*'
+    - '*Media*'
+    - '*Cut*'
+    - '*Scan*'
+    - '*Report*'
+    - '*Locator*'
+    name: GPL Tools
   - matches:
     - "*Fla*"
     - "*Houdini*"
