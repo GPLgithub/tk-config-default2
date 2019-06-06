@@ -13,18 +13,13 @@
 
 includes:
 - ../engine_locations.yml
-- ./tk-multi-createdelivery2.yml
-- ./tk-multi-importmedia.yml
-- ./tk-multi-ingestdelivery.yml
 - ./tk-multi-launchapp.yml
 - ./tk-multi-publish2.yml
 - ./tk-multi-screeningroom.yml
-- ./tk-shotgun-copymedia.yml
-- ./tk-shotgun-copymedia-pf.yml
 - ./tk-shotgun-folders.yml
 - ./tk-shotgun-launchfolder.yml
 - ./tk-shotgun-launchpublish.yml
-- ./tk-shotgun-revealinfinder.yml
+- ../studio/apps.yml
 
 ################################################################################
 
@@ -54,9 +49,6 @@ settings.tk-shotgun.asset_step:
 # project
 settings.tk-shotgun.project:
   apps:
-    tk-multi-createdelivery2: "@settings.tk-multi-createdelivery2.project"
-    tk-multi-importmedia: "@settings.tk-multi-importmedia"
-    tk-multi-ingestdelivery: "@settings.tk-multi-ingestdelivery"
     tk-multi-launchapp: "@settings.tk-multi-launchapp"
     tk-multi-launchhiero: "@settings.tk-multi-launchapp.hiero"
     tk-multi-launchmari: "@settings.tk-multi-launchapp.mari"
@@ -64,6 +56,11 @@ settings.tk-shotgun.project:
     tk-multi-publish2: "@settings.tk-multi-publish2.standalone"
     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
     tk-shotgun-launchfolder: "@settings.tk-shotgun-launchfolder"
+    tk-multi-createdelivery2: '@studio.apps.tk-multi-createdelivery2'
+    tk-multi-importcut: '@studio.apps.tk-multi-importcut'
+    tk-multi-importmedia: '@studio.apps.tk-multi-importmedia'
+    tk-multi-importscan: '@studio.apps.tk-multi-importscan'
+    tk-shotgun-reportlab: '@studio.apps.tk-shotgun-reportlab'
   location: "@engines.tk-shotgun.location"
 
 # publishedfile_version
@@ -71,9 +68,10 @@ settings.tk-shotgun.version:
   apps:
     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
     tk-shotgun-launchpublish: "@settings.tk-shotgun-launchpublish"
-    tk-shotgun-copymedia: '@settings.tk-shotgun-copymedia'
-    tk-shotgun-copymedia-pf: '@settings.tk-shotgun-copymedia-pf'
-    tk-shotgun-revealinfinder: '@settings.tk-shotgun-revealinfinder'
+    tk-shotgun-copymedia: '@studio.apps.tk-shotgun-copymedia'
+    tk-shotgun-copymedia-pf: '@studio.apps.tk-shotgun-copymedia-pf'
+    tk-shotgun-reportlab: '@studio.apps.tk-shotgun-reportlab'
+    tk-shotgun-revealinfinder: '@studio.apps.tk-shotgun-revealinfinder'
   location: "@engines.tk-shotgun.location"
 
 settings.tk-shotgun.publishedfile:
@@ -119,7 +117,7 @@ settings.tk-shotgun.shot_step:
 # vendor
 settings.tk-shotgun.vendor:
   apps:
-    tk-multi-createdelivery2: "@settings.tk-multi-createdelivery2.vendor"
+    tk-multi-createdelivery2: "@studio.apps.tk-multi-createdelivery2-vendor"
   location: '@engines.tk-shotgun.location'
 
 # site vendor

@@ -1,11 +1,12 @@
 #
 # Reveal In Finder app
 #
-includes:
-- ../app_locations.yml
-
-settings.tk-shotgun-revealinfinder:
-  location: "@apps.tk-shotgun-revealinfinder.location"
+tk-shotgun-revealinfinder:
+  location:
+    version: v1.0.2
+    type: git
+    path: git@github.com:GPLgithub/tk-shotgun-revealinfinder.git
+    disabled: false
   #
   # reveal_actions:
   #

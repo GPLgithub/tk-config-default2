@@ -1,11 +1,12 @@
 #
 # Ingest Delivery app
 #
-includes:
-- ../app_locations.yml
-
-settings.tk-multi-ingestdelivery:
-  location: "@apps.tk-multi-ingestdelivery.location"
+tk-multi-ingestdelivery:
+  location:
+    version: v5.6.2
+    type: git
+    path: git@github.com:GPLgithub/tk-multi-ingestdelivery.git
+    disabled: false
 
   # Template corresponding to the location of Aspera-delivered files.
   # If no template is provided,  then the delivery will be downloaded from the

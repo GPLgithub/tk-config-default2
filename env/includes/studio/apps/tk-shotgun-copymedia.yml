@@ -1,12 +1,12 @@
 #
 # Copy Media app
 #
-includes:
-- ../app_locations.yml
-
-
-settings.tk-shotgun-copymedia:
-  location: "@apps.tk-shotgun-copymedia.location"
+tk-shotgun-copymedia:
+  location:
+    version: v0.4.5
+    type: git
+    path: git@github.com:GPLgithub/tk-shotgun-copymedia.git
+    disabled: false
 
   # List of dictionaries with templates to define custom folder hierarchies for
   # file destinations.

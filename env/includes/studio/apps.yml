@@ -1,0 +1,41 @@
+# Copyright (c) 2016 Shotgun Software Inc.
+#
+# CONFIDENTIAL AND PROPRIETARY
+#
+# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your
+# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Shotgun Software Inc.
+#
+
+# this configuration provides a single source to import references
+# to all Studio apps
+
+includes:
+- ../frameworks.yml
+- frameworks.yml
+- apps/tk-multi-createdelivery2.yml
+- apps/tk-multi-importcut.yml
+- apps/tk-multi-importmedia.yml
+- apps/tk-multi-importscan.yml
+- apps/tk-multi-ingestdelivery.yml
+- apps/tk-multi-requestscan.yml
+- apps/tk-shotgun-copymedia.yml
+- apps/tk-shotgun-copymedia-pf.yml
+- apps/tk-shotgun-reportlab.yml
+- apps/tk-shotgun-revealinfinder.yml
+
+# define aliases for each of the apps for reuse elsewhere
+# naming conventions follow those from tk-config-basic
+studio.apps.tk-multi-createdelivery2: "@tk-multi-createdelivery2"
+studio.apps.tk-multi-createdelivery2-vendor: "@tk-multi-createdelivery2-vendor"
+studio.apps.tk-multi-importcut: "@tk-multi-importcut"
+studio.apps.tk-multi-importmedia: "@tk-multi-importmedia"
+studio.apps.tk-multi-importscan: "@tk-multi-importscan"
+studio.apps.tk-multi-ingestdelivery: "@tk-multi-ingestdelivery"
+studio.apps.tk-multi-requestscan: "@tk-multi-requestscan"
+studio.apps.tk-shotgun-copymedia: "@tk-shotgun-copymedia"
+studio.apps.tk-shotgun-copymedia-pf: "@tk-shotgun-copymedia-pf"
+studio.apps.tk-shotgun-reportlab: "@tk-shotgun-reportlab"
+studio.apps.tk-shotgun-revealinfinder: "@tk-shotgun-revealinfinder"

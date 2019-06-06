@@ -193,37 +193,6 @@ apps.tk-mari-projectmanager.location:
   type: app_store
   version: v1.2.1
 
-# ---- Delivery apps
-apps.tk-multi-createdelivery2.location:
-  version: v5.6.9
-  type: git
-  path: git@github.com:GPLgithub/tk-multi-importmedia.git
-
-apps.tk-multi-importmedia.location:
-  version: v5.6.9
-  type: git
-  path: git@github.com:GPLgithub/tk-multi-importmedia.git
-
-apps.tk-multi-ingestdelivery.location:
-    version: v5.6.2
-    type: git
-    path: git@github.com:GPLgithub/tk-multi-ingestdelivery.git
-
-apps.tk-shotgun-copymedia.location:
-    version: v0.4.5
-    type: git
-    path: git@github.com:GPLgithub/tk-shotgun-copymedia.git
-
-apps.tk-shotgun-copymedia-pf.location:
-    version: v0.4.5
-    type: git
-    path: git@github.com:GPLgithub/tk-shotgun-copymedia.git
-
-apps.tk-shotgun-revealinfinder.location:
-    version: v1.0.2
-    type: git
-    path: git@github.com:GPLgithub/tk-shotgun-revealinfinder.git
-
 ################################################################################
 # reference all of the common frameworks
 frameworks: '@frameworks'

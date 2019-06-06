@@ -1,0 +1,145 @@
+#
+# Reportlab
+#
+tk-shotgun-reportlab:
+  location:
+    version: v1.8.8
+    type: git
+    path: git@github.com:GPLgithub/tk-shotgun-reportlab.git
+    # tk-framework-imageutils needs to be enabled in frameworks.yml if
+    # Reportlab is enabled.
+    disabled: true
+  #
+  # date_time_format:
+  #
+  # Template (from core/templates.yml) to use when formatting
+  # dates
+  #
+  # Default:
+  # yy_mm_dd_format
+  #
+  date_time_format: yy_mm_dd_format
+  #
+  # report_hooks:
+  #
+  # List of dictionaries representing individual reports.
+  # Each report type has the following configurable settings:
+  #
+  # display_name:
+  #
+  # Name of the report as displayed in Shotgun, and in some cases, for the
+  # heading of the generated report
+  #
+  # report_hook:
+  #
+  # Report hook (python file) to use (which will determine most
+  # aspects of the report generated).
+  # When prefixed with '{self}/' (for example '{self}/count_sheet.py'), the app's
+  # own hooks folder will be used. This will allow "built-in" reports to be used.
+  # When prefixed with '{config}/' (for example '{config}/count_sheet.py'), the
+  # hooks folder inside the config root will be used. This allows for custom or
+  # modified reports to be used.
+  # A report base must be paired with a specific report.
+  #
+  # The following built-in hooks are available to use as bases:
+  # report_base.py.
+  #
+  # The following built-in hooks are available to use as reports:
+  # camera_report.py
+  # color_workbook.py
+  # count_sheet.py
+  # entity_breakdown.py
+  # line_up_sheet.py
+  # model_sheet.py
+  # review_notes.py
+  # scan_sheet.py
+  # shot_workbook.py
+  # submission_sheet.py
+  #
+  # report_name:
+  #
+  # Optional token to allow for reports to be reused with different
+  # display_names
+  #
+  # Since:
+  # v1.8.0
+  #
+  # valid_contexts:
+  #
+  # List of Shotgun entities that the report is valid to be run for.
+  # Reportlab must also be included in that entity's environment file
+  # in the config, or the report will not show up.
+  #
+  #
+  # Default:
+  #   report_hooks:
+  #   - report_hook: '{self}/report_base.py:{self}/count_sheet.py'
+  #     display_name: Count Sheet
+  #     valid_contexts: [shot, playlist, note, launch]
+  #   - report_hook: '{self}/report_base.py:{self}/submission_sheet.py'
+  #     display_name: Submission Sheet
+  #     valid_contexts: [playlist]
+  #   - report_hook: '{self}/report_base.py:{self}/scan_sheet.py'
+  #     display_name: Scan Sheet
+  #     valid_contexts: [version, shot, playlist, launch]
+  #   - report_hook: '{self}/report_base.py:{self}/entity_breakdown.py'
+  #     display_name: Shot Breakdown
+  #     report_name: shot_breakdown
+  #     valid_contexts: [shot]
+  #   - report_hook: '{self}/report_base.py:{self}/entity_breakdown.py'
+  #     display_name: Asset Breakdown
+  #     report_name: asset_breakdown
+  #     valid_contexts: [asset]
+  #   - report_hook: '{self}/report_base.py:{self}/entity_breakdown.py'
+  #     display_name: Sequence Breakdown
+  #     report_name: sequence_breakdown
+  #     valid_contexts: [sequence]
+  #   - report_hook: '{self}/report_base.py:{self}/entity_breakdown.py'
+  #     display_name: Task Breakdown
+  #     report_name: task_breakdown
+  #     valid_contexts: [task]
+  #   - report_hook: '{self}/report_base.py:{self}/camera_report.py'
+  #     display_name: Camera Report
+  #     valid_contexts: [camera, slate, mocaptake]
+  #   - report_hook: '{self}/report_base.py:{self}/review_notes.py'
+  #     display_name: Review Notes Summary
+  #     valid_contexts: [note, playlist]
+  #
+  report_hooks:
+  - report_hook: '{self}/report_base.py:{self}/count_sheet.py'
+    display_name: Count Sheet
+    valid_contexts: [shot, playlist, note, launch]
+  - report_hook: '{self}/report_base.py:{self}/submission_sheet.py'
+    display_name: Submission Sheet
+    valid_contexts: [playlist]
+  - report_hook: '{self}/report_base.py:{self}/scan_sheet.py'
+    display_name: Scan Sheet
+    valid_contexts: [version, shot, playlist, launch]
+  - report_hook: '{self}/report_base.py:{self}/entity_breakdown.py'
+    display_name: Shot Breakdown
+    report_name: shot_breakdown
+    valid_contexts: [shot]
+  - report_hook: '{self}/report_base.py:{self}/entity_breakdown.py'
+    display_name: Asset Breakdown
+    report_name: asset_breakdown
+    valid_contexts: [asset]
+  - report_hook: '{self}/report_base.py:{self}/entity_breakdown.py'
+    display_name: Sequence Breakdown
+    report_name: sequence_breakdown
+    valid_contexts: [sequence]
+  - report_hook: '{self}/report_base.py:{self}/entity_breakdown.py'
+    display_name: Task Breakdown
+    report_name: task_breakdown
+    valid_contexts: [task]
+  - report_hook: '{self}/report_base.py:{self}/camera_report.py'
+    display_name: Camera Report
+    valid_contexts: [camera, slate, mocaptake]
+  - report_hook: '{self}/report_base.py:{self}/review_notes.py'
+    display_name: Review Notes Summary
+    valid_contexts: [note, playlist]
+  - report_hook: '{self}/report_base.py:{self}/model_sheet.py'
+    display_name: Model Sheet
+    valid_contexts: [version]
+  - report_hook: '{self}/report_base.py:{self}/color_workbook.py'
+    display_name: Color Workbook
+    valid_contexts: [shot]

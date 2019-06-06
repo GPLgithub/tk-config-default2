@@ -1,11 +1,12 @@
 #
 # Copy Media app (configured for Published Files)
 #
-includes:
-- ../app_locations.yml
-
-settings.tk-shotgun-copymedia-pf:
-  location: "@apps.tk-shotgun-copymedia-pf.location"
+tk-shotgun-copymedia-pf:
+  location:
+    version: v0.4.5
+    type: git
+    path: git@github.com:GPLgithub/tk-shotgun-copymedia.git
+    disabled: false
   display_name: Copy Published Files...
   custom_file_structure_templates: []
   path_fields: [sg_path_to_frames, sg_path_to_movie]

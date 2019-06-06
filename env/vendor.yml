@@ -16,7 +16,6 @@ description: Apps and Engines when launching with a site level context.
 includes:
 - ./includes/frameworks.yml
 - ./includes/settings/tk-desktop.yml
-- ./includes/settings/tk-desktop2.yml
 - ./includes/settings/tk-shell.yml
 - ./includes/settings/tk-shotgun.yml
 
