@@ -46,7 +46,7 @@ class PickEnvironment(Hook):
                 self.logger.debug("Using site_vendor context")
                 return "site_vendor"
 
-            # self.logger.info("Using vendor config")
+            self.logger.info("Using vendor config")
             self.logger.debug("Using vendor context")
             return "vendor"
 
@@ -60,7 +60,7 @@ class PickEnvironment(Hook):
                 self.logger.debug("Using site_vendor context")
                 return "site_vendor"
 
-            # self.logger.info("Using vendor config (dev)")
+            self.logger.info("Using vendor config (dev)")
             self.logger.debug("Using vendor context")
             return "vendor"
 
