@@ -17,13 +17,14 @@ includes:
 - ./includes/frameworks.yml
 - ./includes/settings/tk-desktop.yml
 - ./includes/settings/tk-shell.yml
+- ./includes/settings/tk-shotgun.yml
 
 ################################################################################
 # configuration for all engines to load in a project context
 engines:
   tk-desktop: '@settings.tk-desktop.site_vendor'
   tk-shell: '@settings.tk-shell.site_vendor'
-  tk-shotgun: '@settings.tk-shell.site_vendor'
+  tk-shotgun: '@settings.tk-shotgun.site_vendor'
 
 ################################################################################
 # reference all of the common frameworks

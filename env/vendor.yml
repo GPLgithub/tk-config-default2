@@ -9,7 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 #
 
-description: Apps and Engines when launching with a site level context.
+description: Apps and Engines when launching with a vendor level context.
 
 ################################################################################
 
@@ -20,7 +20,7 @@ includes:
 - ./includes/settings/tk-shotgun.yml
 
 ################################################################################
-# configuration for all engines to load in a project context
+# configuration for all engines to load in a vendor context
 engines:
   tk-desktop: "@settings.tk-desktop.vendor"
   tk-shell: "@settings.tk-shell.vendor"

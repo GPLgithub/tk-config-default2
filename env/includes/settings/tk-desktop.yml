@@ -26,16 +26,6 @@ settings.tk-desktop.site:
   apps:
   location: "@engines.tk-desktop.location"
 
-settings.tk-desktop.site_vendor:
-  apps:
-  location: "@engines.tk-desktop.location"
-
-settings.tk-desktop.vendor:
-  apps:
-#    tk-multi-createdelivery2: "@studio.apps.tk-multi-createdelivery2-vendor"
-  location: "@engines.tk-desktop.location"
-
-
 # project
 settings.tk-desktop.project:
   apps:
@@ -83,4 +73,15 @@ settings.tk-desktop.project:
   - matches:
     - "*Hiero*"
     name: Editorial Tools
+  location: "@engines.tk-desktop.location"
+
+# site vendor
+settings.tk-desktop.site_vendor:
+  apps:
+  location: "@engines.tk-desktop.location"
+
+# vendor
+settings.tk-desktop.vendor:
+  apps:
+    tk-multi-createdelivery2: "@studio.apps.tk-multi-createdelivery2-vendor"
   location: "@engines.tk-desktop.location"
