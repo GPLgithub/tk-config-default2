@@ -1,0 +1,25 @@
+# Copyright (c) 2015 Shotgun Software Inc.
+#
+# CONFIDENTIAL AND PROPRIETARY
+#
+# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your
+# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Shotgun Software Inc.
+
+#
+# Copy Media app (configured for Published Files)
+#
+tk-shotgun-copymedia-pf:
+  location:
+    version: v0.4.5
+    type: git
+    path: git@github.com:GPLgithub/tk-shotgun-copymedia.git
+    disabled: false
+  display_name: Copy Published Files...
+  custom_file_structure_templates: []
+  path_fields: [sg_path_to_frames, sg_path_to_movie]
+  path_root_templates: [delivery_root]
+  use_published_files: true
+  use_smart_fields: true

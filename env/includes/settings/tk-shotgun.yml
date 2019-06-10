@@ -19,6 +19,7 @@ includes:
 - ./tk-shotgun-folders.yml
 - ./tk-shotgun-launchfolder.yml
 - ./tk-shotgun-launchpublish.yml
+- ../studio/apps.yml
 
 ################################################################################
 
@@ -55,15 +56,25 @@ settings.tk-shotgun.project:
     tk-multi-publish2: "@settings.tk-multi-publish2.standalone"
     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
     tk-shotgun-launchfolder: "@settings.tk-shotgun-launchfolder"
+    tk-multi-createdelivery2: '@studio.apps.tk-multi-createdelivery2'
+    tk-multi-importcut: '@studio.apps.tk-multi-importcut'
+    tk-multi-importmedia: '@studio.apps.tk-multi-importmedia'
+    tk-multi-importscan: '@studio.apps.tk-multi-importscan'
+    tk-shotgun-reportlab: '@studio.apps.tk-shotgun-reportlab'
   location: "@engines.tk-shotgun.location"
 
-# publishedfile_version
+# version
 settings.tk-shotgun.version:
   apps:
     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
     tk-shotgun-launchpublish: "@settings.tk-shotgun-launchpublish"
+    tk-shotgun-copymedia: '@studio.apps.tk-shotgun-copymedia'
+    tk-shotgun-copymedia-pf: '@studio.apps.tk-shotgun-copymedia-pf'
+    tk-shotgun-reportlab: '@studio.apps.tk-shotgun-reportlab'
+    tk-shotgun-revealinfinder: '@studio.apps.tk-shotgun-revealinfinder'
   location: "@engines.tk-shotgun.location"
 
+# published file
 settings.tk-shotgun.publishedfile:
   apps:
     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
@@ -91,6 +102,7 @@ settings.tk-shotgun.shot:
     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
     tk-shotgun-folders: "@settings.tk-shotgun-folders"
     tk-shotgun-launchfolder: "@settings.tk-shotgun-launchfolder"
+    tk-shotgun-reportlab: '@studio.apps.tk-shotgun-reportlab'
   location: "@engines.tk-shotgun.location"
 
 # shot_step
@@ -103,3 +115,14 @@ settings.tk-shotgun.shot_step:
     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
     tk-shotgun-launchfolder: "@settings.tk-shotgun-launchfolder"
   location: "@engines.tk-shotgun.location"
+
+# vendor
+settings.tk-shotgun.vendor:
+  apps:
+    tk-multi-createdelivery2: "@studio.apps.tk-multi-createdelivery2-vendor"
+  location: '@engines.tk-shotgun.location'
+
+# site vendor
+settings.tk-shotgun.site_vendor:
+  apps:
+  location: '@engines.tk-shotgun.location'

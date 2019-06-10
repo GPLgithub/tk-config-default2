@@ -1,0 +1,87 @@
+# Copyright (c) 2015 Shotgun Software Inc.
+#
+# CONFIDENTIAL AND PROPRIETARY
+#
+# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your
+# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Shotgun Software Inc.
+
+#
+# Request Scan app
+#
+tk-multi-requestscan:
+  location:
+    version: v0.7.1
+    type: git
+    path: git@github.com:GPLgithub/tk-shotgun-requestscans.git
+    # tk-framework-studio v1 needs to be enabled if this app is enabled.
+    # tk-framework-editorial v1 needs to be enabled if this app is enabled.
+    disabled: true
+  # csv_headers:
+  #
+  # List of Shotgun fields appear as headers/columns in the generated CSV file
+  # Fields are from the context of the scan (Version)
+  #
+  # Default:
+  # [id, code, source_clip.SourceClip.code, source_clip.SourceClip.sg_tape,
+  #  sg_timecode_cut_in, sg_timecode_cut_out, sg_head_duration, sg_tail_duration, sg_first_frame,
+  #  sg_last_frame, frame_count, Playlist.sg_recipients, sg_format, source_clip.SourceClip.sg_asc_sat,
+  #  source_clip.SourceClip.sg_asc_sop, project.Project.name]
+  #
+  csv_headers: [id, code, source_clip.SourceClip.code, source_clip.SourceClip.sg_tape,
+    sg_timecode_cut_in, sg_timecode_cut_out, sg_head_duration, sg_tail_duration, sg_first_frame,
+    sg_last_frame, frame_count, Playlist.sg_recipients, sg_format, source_clip.SourceClip.sg_asc_sat,
+    source_clip.SourceClip.sg_asc_sop, project.Project.name]
+  #
+  # edl_fields:
+  #
+  # Dict of fields and corresponding Shotgun fields to appear as comments in the generated EDL file
+  # Only used if ship_edl_file is true
+  # fields are from the context of the scan (Version)
+  #
+  # Default:
+  # {asc_sat: source_clip.SourceClip.sg_asc_sat, asc_sop: source_clip.SourceClip.sg_asc_sop,
+  #  source_file: source_clip.SourceClip.sg_filename}
+  #
+  # Since v0.4.2
+  #
+  edl_fields: {asc_sat: source_clip.SourceClip.sg_asc_sat, asc_sop: source_clip.SourceClip.sg_asc_sop,
+    source_file: source_clip.SourceClip.sg_filename}
+  #
+  # gui_headers:
+  #
+  # List of Shotgun fields to show in the GUI preview
+  # fields are from the context of the scan (Version)
+  #
+  # default:
+  # [code, source_clip.SourceClip.code, source_clip.SourceClip.sg_tape,
+  #  sg_timecode_cut_in, sg_timecode_cut_out, sg_head_duration, sg_tail_duration, sg_first_frame,
+  #  sg_last_frame, frame_count, Playlist.sg_recipients, sg_format, source_clip.SourceClip.sg_asc_sat,
+  #  source_clip.SourceClip.sg_asc_sop]
+  #
+  gui_headers: [code, source_clip.SourceClip.code, source_clip.SourceClip.sg_tape,
+    sg_timecode_cut_in, sg_timecode_cut_out, sg_head_duration, sg_tail_duration, sg_first_frame,
+    sg_last_frame, frame_count, Playlist.sg_recipients, sg_format, source_clip.SourceClip.sg_asc_sat,
+    source_clip.SourceClip.sg_asc_sop]
+  #
+  # sg_source_clip_entity:
+  #
+  # Specifies which entity is used for source clips
+  #
+  # default:
+  # SourceClip
+  #
+  sg_source_clip_entity: SourceClip
+  #
+  # ship_edl_file:
+  #
+  # When set to true, an EDL file will be generated in addition to the CSV
+  #
+  # default:
+  # true
+  #
+  # Since v0.3.1
+  #
+  ship_edl_file: true

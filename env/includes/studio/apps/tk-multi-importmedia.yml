@@ -1,0 +1,95 @@
+# Copyright (c) 2015 Shotgun Software Inc.
+#
+# CONFIDENTIAL AND PROPRIETARY
+#
+# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your
+# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Shotgun Software Inc.
+#
+# Import Media app
+#
+tk-multi-importmedia:
+  location:
+    version: v5.6.9
+    type: git
+    path: git@github.com:GPLgithub/tk-multi-importmedia.git
+    disabled: false
+
+  # List of columns to be displayed in the UI.
+  #
+  # The following built-in columns are available:
+  # NAME - Version name.
+  # FORMATS - Detected publish types from media files.
+  # EXISTS - Whether or not a version with the given name already exists in Shotgun.
+  # STEREO - Whether or not some stereo input was detected.
+  # PATH TO FRAMES - The value which will be used to populate sg_path_to_frames Version field.
+  # PATH TO MOVIE - The value which will be used to populate sg_path_to_movie Version field.
+  # VERSION NUMBER - The version number extracted from the version name.
+  # ORDER - For debug purposes: displays the version order in the playlist, which is otherwise
+  # displayed in the vertical header on the left.
+  # MESSAGE - For debug purposes: displays runtime messages, which are otherwise
+  # displayed as a tooltip on the name column.
+  # TEMPLATE KEYS - For debug purposes: displays the template and its resolved keys used when
+  # parsing the version name.
+  #
+  # Note: it's possible to also include fields from versions via the separate version_field_columns
+  # setting alongside these columns.
+  columns: [NAME, FORMATS, EXISTS]
+
+  # List of file extensions to ignore. Dragging files with these extensions into the app will
+  # have no effect.
+  # ignored_extensions: [tmp, log, db, txt, yml]
+
+  # List of dictionaries of transcoders to use with particular formats.
+  # https://github.com/shotgunsoftware/tk-framework-transcoding/wiki/Documentation#available-transcoders
+  # formats: List of formats to use with the paired transcoders
+  #          Currently supported: mp4, webm, filmstrip, thumbnail, movie_image
+  # transcoder: Transcoder to use for specified formats, currently supported: ffmpeg
+  #
+  local_transcoding:
+  - formats: [mp4, webm, filmstrip, thumbnail, movie_image]
+    transcoder: ffmpeg
+
+  # List of fields from those specified in version_field_columns that must be given a value
+  # in order for the app to proceed to import the version
+  mandatory_fields: [entity, sg_version_type]
+
+  # List of formats from those defined in tk-framework-delivery_v2:delivery_formats:name
+  # which will update the version's path to movie and be transcoded during import
+  # Note: movie_review_formats does not seem to exist?
+  movie_review_formats: [movie, editorial, image]
+  transcoding_priority: [movie, h264, editorial, image]
+
+  # Template to use to parse the version name from the file name
+  path_template: version_file_name
+
+  # Template to use to generate the name of the playlist that will be created during
+  # import.
+  playlist_name_template: playlist_name_template
+
+  # List of dictionaries of entities to allow for particular fields
+  # Each dictionary has two keys:
+  #   field_name: The name of the field to apply the restriction to
+  #   entity_types: List of entity types to allow in the field
+  restrict_field_entity_types:
+  - field_name: entity
+    entity_types: [Shot, Sequence, Asset]
+
+  # List of fields on the Version entity that will be available to edit in the UI prior to
+  # import
+  # Note: multi-entity type fields are not supported
+  version_field_columns: [entity, sg_version_type, description]
+
+  # List of templates to use when attempting to parse tokens from the version name,
+  # such as for the version number or linked entity. The order is important, the
+  # first matching template is used.
+  version_name_templates:
+  - shot_version_name
+  - shot_version_name_generic
+  - asset_version_name
+  - version_name_generic
+
+  # A template defining the destination path for deliveries. Not used by all
+  delivery_root_path_template: delivery_root_path

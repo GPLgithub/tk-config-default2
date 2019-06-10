@@ -1,0 +1,105 @@
+# Copyright (c) 2015 Shotgun Software Inc.
+#
+# CONFIDENTIAL AND PROPRIETARY
+#
+# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your
+# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Shotgun Software Inc.
+
+frameworks:
+  tk-framework-delivery_v5.x.x:
+    location:
+      version: v5.10.3
+      type: git
+      path: git@github.com:GPLgithub/tk-framework-delivery.git
+    #
+    # delivery_formats:
+    # Ordered list of dictionaries of formats
+    # Note: the order will affect some apps, for example Create Delivery
+    #
+    # name: Name of the format
+    # exclusive: When set to true, only one format of this type can exist for a
+    #            version. If false, multiple formats can exist for a single version.
+    #            ie. one mov and one mp4 for "movie" are legal with `exclusive: false`
+    # extensions: List of file extensions used by this format. If none are provided,
+    #             any extension is considered valid.
+    # path_to_field: Field on Version to use for recording the path to the file on disk
+    #                for the format. If set, the format is exclusive.
+    # publish_type: Tank type which will be used when publishing files in Toolkit.
+    #               The following can be used:
+    #                 {extension} will be replaced with the extension, lower cased.
+    #                 {EXTENSION} will be replaced with the extension, upper cased.
+    #                 {Extension} will be replaced with the extension, capitalized.
+    delivery_formats:
+    - name: exr
+      exclusive: false
+      extensions: [exr]
+      path_to_field: sg_path_to_frames
+      publish_type: '{extension}'
+    - name: dpx
+      exclusive: false
+      extensions: [dpx]
+      path_to_field: sg_path_to_frames
+      publish_type: '{extension}'
+    - name: image
+      exclusive: false
+      extensions: [tif, tiff, jpg, jpeg, png, tga]
+      path_to_field: ''
+      publish_type: '{extension}'
+    - name: movie
+      exclusive: false
+      extensions: [mov, mp4, s3d]
+      path_to_field: sg_path_to_movie
+      publish_type: '{extension}'
+    - name: editorial
+      exclusive: true
+      extensions: [mov, mp4, s3d]
+      path_to_field: ''
+      publish_type: dnxhd
+    - name: h264
+      exclusive: true
+      extensions: [mov, mp4, s3d]
+      path_to_field: ''
+      publish_type: h264
+    - name: matte
+      exclusive: false
+      extensions: [exr, tif, tiff]
+      path_to_field: ''
+      publish_type: matte
+    - name: lut
+      exclusive: false
+      extensions: [cube, cdl, ccc]
+      path_to_field: ''
+      publish_type: '{extension}'
+    - name: element
+      exclusive: false
+      extensions: [zip, tar, tgz, ma, mb, abc, fbx, hip, max, obj, bgeo]
+      path_to_field: ''
+      publish_type: '{extension}'
+    - name: other
+      exclusive: false
+      extensions: []
+      path_to_field: ''
+      publish_type: '{extension}'
+    image_formats: [exr, dpx, image, matte]
+    movie_formats: [movie, editorial, h264]
+
+  tk-framework-studio_v3.x.x:
+    location:
+      version: v3.1.1
+      type: git
+      path: git@github.com:GPLgithub/tk-framework-studio.git
+
+  tk-framework-studiowidgets_v0.x.x:
+    location:
+      version: v0.0.2
+      type: git
+      path: git@github.com:GPLgithub/tk-framework-studiowidgets.git
+
+  tk-framework-transcoding_v1.x.x:
+    location:
+      version: v1.7.3
+      type: git
+      path: git@github.com:GPLgithub/tk-framework-transcoding.git

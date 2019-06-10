@@ -25,15 +25,43 @@
 # The keys section contains the definitions for all the different keys that are being
 # used by Sgtk. A key is a magic token that is replaced by a value at runtime, for example
 # {Shot}. The section below tells Sgtk which data types and formats to expect for each key.
-#
+
+# Some of the key names are required by Studio apps, so similar keys can't be merged
+# together in a single one.
+
 keys:
+
+    # SG Entity keys, in some cases naming conventions need to be enforced with
+    # a regular expression
+    Project:
+        type: str
+        shotgun_entity_type: Project
+        shotgun_field_name: name
+
+    Asset:
+        type: str
+        shotgun_entity_type: Asset
+        shotgun_field_name: code
+        filter_by: "^[A-Za-z0-9]+$"
+
     Sequence:
         type: str
+        shotgun_entity_type: Sequence
+        shotgun_field_name: code
+        filter_by: "^[A-Za-z]{3}$"
+
     Shot:
         type: str
-    Step:
+        filter_by: "^[A-Za-z]{3}[0-9]{4}$"
+        shotgun_entity_type: Shot
+        shotgun_field_name: code
+
+    ShotSequence:
         type: str
-    sg_asset_type:
+        shotgun_entity_type: Shot
+        shotgun_field_name: sg_sequence.Sequence.code
+
+    Step:
         type: str
     Asset:
         type: str
@@ -51,10 +79,6 @@ keys:
        alias: version
     timestamp:
         type: str
-    width:
-        type: int
-    height:
-        type: int
     segment_name:
         type: str
 
@@ -94,20 +118,6 @@ keys:
     aov_name:
         type: str
 
-    # these are used by the Hiero exporter and pipeline
-    YYYY:
-        type: int
-        format_spec: "04"
-    MM:
-        type: int
-        format_spec: "02"
-    DD:
-        type: int
-        format_spec: "02"
-        alias: DD
-    project:
-        type: str
-
     # These are used for the Mari UDIM pipeline:
     UDIM:
         type: sequence
@@ -138,6 +148,233 @@ keys:
             mb: Maya Binary (.mb)
         default: ma
         alias: extension
+
+
+    ## Keys added for delivery tools
+
+    # A key to extract an extension
+    # Required by delivery apps
+    ext:
+        type: str
+
+    # Required by delivery apps
+    format_type:
+        type: str
+
+    # A key to extract a frame number, in an abstract form (%04d) or not (1234)
+    # Required by delivery apps
+    frame_number:
+        type: str
+        filter_by: '^(%0\d+d)|(\d+)$'
+
+    # Keys to set a width and a height
+    # Required for Ingest Delivery app
+    width:
+        type: int
+
+    # Required for Ingest Delivery app
+    height:
+        type: int
+
+    # Stereo eye key, set choices to ['%v'] to not support stereo files
+    # Required by delivery apps
+    stereo_eye:
+        type: str
+        choices: ['l', 'left', 'r', 'right', 's', 'stereo', '%v']
+
+    # Matches any string
+    catch_all_string:
+        type: str
+
+    # Constant tokens used in delivery apps to choose a specific format
+    matte_token:
+        type: str
+        filter_by: "^matte$"
+    cinesync_token:
+        type: str
+        filter_by: "^cinesync$"
+    h264_token:
+        type: str
+        filter_by: "^h264$"
+
+    # Extract a Version name from a file name
+    # Required by delivery apps
+    version_name:
+        type: str
+
+    # Extract a Version number from a file name
+    # Required by delivery apps
+    version_number:
+        type: int
+        format_spec: "04"
+
+    # Date/time related keys
+    # 2-digit day number
+    DD:
+        type: int
+        format_spec: "02"
+
+    # 2-digit month number
+    MM:
+        type: int
+        format_spec: "02"
+
+    # 4-digit year number
+    YYYY:
+        type: int
+        format_spec: "04"
+
+    # Year-month-day as a 6-digit number
+    YYMMDD:
+        type: int
+        format_spec: "06"
+
+    # Year-month-day as an 8-digit number
+    YYYYMMDD:
+        type: int
+        format_spec: "08"
+
+    # Timestamp as an 8-digit number with dashes Year-month-day
+    YYYY_MM_DD:
+        type: timestamp
+        format_spec: "%Y-%m-%d"
+        default: now
+
+    # Timestamp as an 8-digit number with dashes day-moth-Year
+    DD_MM_YY:
+        type: timestamp
+        format_spec: "%d-%m-%y"
+        default: now
+
+
+    # Timestamp as an 8-digit number with dashes month-day-Year
+    MM_DD_YY:
+        type: timestamp
+        format_spec: "%m-%d-%y"
+        default: now
+
+    # Timestamp for current date time
+    now:
+        type: timestamp
+        format_spec: "%m/%d/%Y at %I:%M%p"
+        default: now
+
+    # Keys used by Create Delivery app to generate a Delivery title
+    # Required by Create Delivery app
+    delivery_version:
+        type: int
+        format_spec: "04"
+
+    # Required by Create Delivery app
+    delivery_version_by_day:
+        type: int
+        format_spec: "02"
+
+    # Required by Create Delivery app
+    delivery_version_by_vendor:
+        type: int
+        format_spec: "04"
+
+    # Define how a version name is parsed for determining uniqueness in the Import
+    # Scan app
+    # For example purposes only
+    # Example assumes a version name in the form abc123_01, abc123_abc123_01, etc
+    scan_version_name:
+        type: str
+        filter_by: '^[a-zA-Z0-9_]+_\d+$'
+
+    # Define parts of a source clip name to keep from an imported value in the
+    # Import Scan app
+    # For example purposes only
+    source_clip_name:
+        type: str
+
+    # Define parts of a source clip name to discard from an imported value in the
+    # Import Scan app
+    # For example purposes only
+    source_clip_name_other:
+        type: str
+        filter_by: "([Ss][Uu][Bb]|[Nn][Ee][Ww]).\\d+"
+
+    # Define asterisk to be discard from an imported value in the
+    # Import Scan app
+    # For example purposes only
+    source_clip_name_asterisk:
+        type: str
+        filter_by: "\\**"
+
+    # Define part of a version name from an imported field_name in the Import Scan app
+    # For example purposes only
+    sg_scan_vfx_number:
+        type: str
+        shotgun_entity_type: Version
+        shotgun_field_name: sg_scan_vfx_number
+
+    # Define part of a version name from an imported field_name in the Import Scan app
+    # For example purposes only
+    sg_scan_element:
+        type: str
+        shotgun_entity_type: Version
+        shotgun_field_name: sg_scan_element
+
+    # Define part of a version name from an imported field_name in the Import Scan app
+    # For example purposes only
+    sg_scan_version_number:
+        type: str
+        shotgun_entity_type: Version
+        shotgun_field_name: sg_scan_version_number
+
+    # Retrieve a Version type, can be used in Create Delivery, Import Media and
+    # Ingest Delivery apps to extract or populate a token.
+    sg_version_type:
+        type: str
+        filter_by: alphanumeric
+        shotgun_entity_type: Version
+        shotgun_field_name: sg_version_type
+
+    # Retrieve a Delivery name, can be used in Ingest Delivery ingest templates
+    sg_delivery_name:
+        type: str
+        shotgun_entity_type: Delivery
+        shotgun_field_name: title
+
+    # Retrieve a vendor code from the context of a delivery
+    sg_delivery_vendor_name:
+        type: str
+        shotgun_entity_type: Delivery
+        shotgun_field_name: created_by.HumanUser.sg_vendor_group.Group.sg_vendor_code
+        alias: vendor
+
+    # Retrieve a vendor code from a HumanUser
+    sg_vendor_code:
+        type: str
+        shotgun_entity_type: HumanUser
+        shotgun_field_name: sg_vendor_group.Group.sg_vendor_code
+
+    # Internal key which will be populated by the Ingest Delivery app if used
+    # in an Ingest template
+    publish_name:
+        type: str
+
+    # Retrieve a Version name, can be used in Ingest Delivery ingest templates
+    sg_version_code:
+        type: str
+        shotgun_entity_type: Version
+        shotgun_field_name: code
+
+    # Retrieve an arbitray string from a destination group, can be used in Ingest
+    # Delivery templates, allowing to have different destination paths depending
+    # on the recipient with a single template.
+    sg_delivery_ingest_folder:
+        type: str
+        shotgun_entity_type: Group
+        shotgun_field_name: sg_ingest_folder
+
+    # Asset Type field value on the Asset
+    sg_asset_type:
+        type: str
+        shotgun_entity_type: Asset
+        shotgun_field_name: sg_asset_type
 
 #
 # The paths section contains all the the key locations where files are to be stored
@@ -617,3 +854,158 @@ strings:
 
     # define how new Mari projects should be named
     mari_asset_project_name: "{mari.project_name} - Asset {asset_name}, {task_name}"
+
+    ### required by delivery tools
+
+    # Copy Media app template string example defining how to structure copies
+    copy_media_fs_date_version: 'dates/{YYYY}/{MM}/{DD}/{version_name}'
+
+    #
+    # Templates used to extract tokens in Import Media and Create Delivery2
+    #
+    # They can include some Version field keys which will populate cell values
+    # different naming conventions can be set by changing the Shot key regexp
+    # or adding more keys
+
+    # How to extract a Version name from a file name
+    version_file_name: "{version_name}[_{stereo_eye}][.{frame_number}].{ext}"
+
+    # Shot Version parsing, a version type and a version number are
+    # extracted. e.g. abc0001_comp_v0004
+    shot_version_name: "{Shot}[_{sg_version_type}][_{sg_vendor_code}][_v{version_number}][_{matte_token}][_{h264_token}][_{stereo_eye}]"
+
+    # First fallback if media files do not follow the expected convention: just
+    # try to extract the Shot and a stereo eye
+    shot_version_name_generic: "{Shot}[_{catch_all_string}][_{stereo_eye}]"
+
+    # Asset Version parsing, a version type and a version number are
+    # extracted. e.g. sven_lookdev_v0004
+    asset_version_name: "{Asset}[_{sg_version_type}][_{sg_vendor_code}]_v{version_number}[_{matte_token}][_{h264_token}][_{stereo_eye}]"
+
+    # General fallback so any file is accepted but the user has to fill in the
+    # values manually. We just make sure that the stereo_eye (if any) is not
+    # included in the Version name.
+    version_name_generic: "{catch_all_string}[_{stereo_eye}]"
+
+
+    # A template used by Create Delivery2 to set a Delivery name
+    delivery_name: "{YYYY}{MM}{DD}_{sg_vendor_code}_{delivery_version_by_day}"
+
+    # For Create Delivery2, define how the destination path of a Delivery should
+    # be generated on a remote server. Local and Sneakernet Deliveries simply
+    # use a target folder and the Delivery name.
+    delivery_root_path: 'From/{YYYY}_{MM}_{DD}'
+
+    # For Import Media, define how the resulting playlist should be named
+    playlist_name_template: "Media Imported on {now}"
+
+    # Local mount point of an Aspera server allowing to not have to download
+    # Deliveries to ingest them. Barely used.
+    aspera_root_template: "/Volumes/ASPERA/{sg_delivery_vendor_name}"
+
+    # Local mount point of an Sftp server allowing to not have to download
+    # Deliveries to ingest them. Barely used.
+    sftp_root_template: "/Volumes/SFTP/{sg_delivery_vendor_name}"
+
+    # Vendors home folder on an Aspera server. Vendors typically have their
+    # specific home folder that they see as '/', but this folder must be inserted
+    # in Delivery urls seen by production.
+    # For example for an url like: "fasp://foo.bar.com/FROM_VENDOR1/…",
+    # if `remote_aspera_root` evaluates to "vendor1", the download url used by
+    # Ingest would be "fasp://foo.bar.com/vendor1/FROM_VENDOR1/…"
+    remote_aspera_root: "/{sg_delivery_vendor_name}"
+
+    # Vendors home folder on an Sftp server. Vendors typically have their
+    # specific home folder that they see as '/', but this folder must be inserted
+    # in Delivery urls seen by production.
+    remote_sftp_root: "/SFTP/{sg_delivery_vendor_name}"
+
+    # Top folder for all ingested Deliveries. If not an absolute path a LocalStorage
+    # is prepended to it by Ingest Delivery, either from a LocalStorage associated
+    # with an Ingest group in the delivery addressings_to list, or a "primary"
+    # global LocalStorage
+    delivery_root: "{Project}_vfx"
+
+    # The location where remote Deliveries should be downloaded to be ingested.
+    # If not an absolute path, a LocalStorage path is prepended to it by Ingest.
+    delivery_download_folder: "@delivery_root/io/incoming/{sg_delivery_name}"
+
+    # Base folder for files copied by Ingest Delivery
+    delivery_editorial_ingest_root: "@delivery_root/editorial/{format_type}"
+    delivery_shot_ingest_root: "@delivery_root/shots/{ShotSequence}/{Shot}/{format_type}"
+    delivery_asset_ingest_root: "@delivery_root/assets/{sg_asset_type}/{Asset}/{format_type}"
+    # Fall back for things not linked to a Shot nor an Asset
+    delivery_ingest_root: "@delivery_root/submissions/{YYYYMMDD}/{sg_delivery_name}/{format_type}"
+
+    # Location where single files should be ingested
+    delivery_ingest_single: "@delivery_ingest_root/{sg_version_code}.{ext}"
+    delivery_shot_ingest_single: "@delivery_shot_ingest_root/{publish_name}.{ext}"
+    delivery_asset_ingest_single: "@delivery_asset_ingest_root/{publish_name}.{ext}"
+
+    # Location where single stereo pair files should be ingested
+    delivery_ingest_single_stereo: "@delivery_ingest_root/{sg_version_code}_{stereo_eye}.{ext}"
+    delivery_shot_ingest_single_stereo: "@delivery_shot_ingest_root/{sg_version_code}_{stereo_eye}.{ext}"
+    delivery_asset_ingest_single_stereo: "@delivery_asset_ingest_root/{sg_version_code}_{stereo_eye}.{ext}"
+
+    # Location where image sequences should be ingested
+    delivery_ingest_imgseq: "@delivery_ingest_root/{sg_version_code}/{width}x{height}/{publish_name}.{frame_number}.{ext}"
+    delivery_shot_ingest_imgseq: "@delivery_shot_ingest_root/{sg_version_code}/{width}x{height}/{publish_name}.{frame_number}.{ext}"
+    delivery_asset_ingest_imgseq: "@delivery_asset_ingest_root/{sg_version_code}/{width}x{height}/{publish_name}.{frame_number}.{ext}"
+
+    # Location where stereo pair image sequences should be ingested
+    delivery_ingest_imgseq_stereo: "@delivery_ingest_root/{sg_version_code}_{stereo_eye}/{width}x{height}/{sg_version_code}_{stereo_eye}.{frame_number}.{ext}"
+    delivery_shot_ingest_imgseq_stereo: "@delivery_shot_ingest_root/{sg_version_code}_{stereo_eye}/{width}x{height}/{sg_version_code}_{stereo_eye}.{frame_number}.{ext}"
+    delivery_asset_ingest_imgseq_stereo: "@delivery_asset_ingest_root/{sg_version_code}_{stereo_eye}/{width}x{height}/{sg_version_code}_{stereo_eye}.{frame_number}.{ext}"
+
+    # Location where editorial files should be ingested
+    delivery_editorial_ingest: "@delivery_editorial_ingest_root/{sg_version_code}.{ext}"
+
+    # Location where editorial stereo pair files should be ingested
+    delivery_editorial_ingest_stereo: "@delivery_editorial_ingest_root/{sg_version_code}_{stereo_eye}.{ext}"
+
+    #
+    # Reportlab app template strings
+    #
+
+    # Date formatting on reports
+    yy_mm_dd_format: "{YYYY_MM_DD}"
+
+    # Date formatting on reports
+    mm_dd_yy_format: "{MM_DD_YY}"
+
+    # Date formatting on reports
+    dd_mm_yy_format: "{DD_MM_YY}"
+
+    #
+    # Import Scan app template strings
+    #
+
+    # Define how we populate the Version name
+    # Note that each template part must be linked to an existing Shotgun
+    # field and a corresponding key. The default template is to use the
+    # Version name as-is.
+    #
+    # Example:
+    # "{sg_scan_vfx_number}_{sg_scan_element}_v{sg_scan_version_number}"
+    import_scan_version_name: "{version_name}"
+
+    # Define how the version name should be filtered when looking
+    # for duplicate versions in the Import Scan app
+    version_name_duplicate_detection: "{scan_version_name}[_{catch_all_string}]"
+
+    # Define how the source clip name is parsed by the Import Scan app
+    # Default:
+    # '{source_clip_name}[.{source_clip_name_other}]'
+    # Removes .sub.00 or .new.00 from the end
+    # e.g. "abc123.Sub.01" => Source Clip "abc123"
+    # e.g. "ab-1.new.02" => Source Clip "ab-1"
+    #
+    # Examples:
+    # '{source_clip_name}[*{source_clip_name_asterisk}][ {catch_all_string}][.{source_clip_name_other}]'
+    # As default but also removes asterisks and anything after trailing spaces
+    # e.g. "A12B-3*" => Source Clip "A12B-3"
+    # e.g. "6J-1* 60FPS" => Source Clip "6J-1"
+    # e.g. "187-4*.SUB.01" => Source Clip "187-4"
+    # e.g. "82-6.NEW.01" => Source Clip "82-6"
+    #
+    source_clip_name_template: '{source_clip_name}[.{source_clip_name_other}]'

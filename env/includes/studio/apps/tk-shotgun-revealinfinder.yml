@@ -1,0 +1,58 @@
+# Copyright (c) 2015 Shotgun Software Inc.
+#
+# CONFIDENTIAL AND PROPRIETARY
+#
+# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your
+# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Shotgun Software Inc.
+
+#
+# Reveal In Finder app
+#
+tk-shotgun-revealinfinder:
+  location:
+    version: v1.0.2
+    type: git
+    path: git@github.com:GPLgithub/tk-shotgun-revealinfinder.git
+    disabled: false
+  #
+  # reveal_actions:
+  #
+  # List of dictionaries representing different reveal actions.
+  # Each reveal action has the following configurable settings:
+  #
+  # display_name:
+  #
+  # Name of the action as displayed in Shotgun
+  #
+  # Since v1.0.0
+  #
+  # sg_entity_type:
+  #
+  # Entity type to enable the reveal action on
+  #
+  # Since v1.0.0
+  #
+  # sg_field:
+  #
+  # Field on the entity to use to get the file path from
+  #
+  # Since v1.0.0
+  #
+  # Default:
+  #   - display_name: Reveal Movie in Finder
+  #    sg_entity_type: Version
+  #    sg_field: sg_path_to_movie
+  #  - display_name: Reveal Frames in Finder
+  #    sg_entity_type: Version
+  #    sg_field: sg_path_to_frames
+  #
+  reveal_actions:
+  - display_name: Reveal Movie in Finder
+    sg_entity_type: Version
+    sg_field: sg_path_to_movie
+  - display_name: Reveal Frames in Finder
+    sg_entity_type: Version
+    sg_field: sg_path_to_frames

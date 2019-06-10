@@ -1,0 +1,337 @@
+# Copyright (c) 2015 Shotgun Software Inc.
+#
+# CONFIDENTIAL AND PROPRIETARY
+#
+# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your
+# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Shotgun Software Inc.
+#
+# Import Scans app
+#
+tk-multi-importscan:
+  location:
+    version: v0.17.15
+    type: git
+    path: git@github.com:GPLgithub/tk-multi-importscan.git
+    disabled: true
+  #
+  # created_by_user:
+  #
+  # Dictionary with the entity to use when setting the user field and the
+  # created_by field. If not provided, the current user is used.
+  #
+  # Should contain "id" and "type" keys
+  #
+  # Example:
+  # {id: 3, type: Group}
+  #
+  # Default:
+  # {}
+  #
+  # Since v0.12.0
+  #
+  created_by_user: {}
+  #
+  # default_first_frame:
+  #
+  # Default value for created Version's sg_first_frame
+  #
+  # Default:
+  # 0
+  #
+  default_first_frame: 0
+  #
+  # default_format:
+  #
+  # Default value for created Version's sg_format
+  #
+  # Default:
+  # Native
+  #
+  # Since v0.4.0
+  #
+  default_format: Native
+  #
+  # default_head_duration:
+  #
+  # Default value for created Version's sg_head_duration
+  #
+  # Default:
+  # 0
+  #
+  default_head_duration: 0
+  #
+  # default_playlist_type:
+  #
+  # Default value for Playlist's sg_type
+  #
+  # Default:
+  # Scan Request
+  #
+  default_playlist_type: Scan Request
+  #
+  # default_tail_duration:
+  #
+  # Default value for created Version's sg_tail_duration
+  #
+  # Default:
+  # 0
+  #
+  default_tail_duration: 0
+  #
+  # default_version_status:
+  #
+  # Default value for created Version's sg_status_list
+  #
+  # Example:
+  # act
+  #
+  # Default:
+  # ''
+  #
+  default_version_status: ''
+  #
+  # duplicate_detection_template:
+  #
+  # Template for determining if a scan is a duplicate or not. This is useful
+  # if you want to ignore parts of the version name when checking for
+  # duplicates, for example.
+  # If set to (null), duplicates will be based on an exact match on the version
+  # name.
+  #
+  # Example:
+  # version_name_duplicate_detection
+  #
+  # Default:
+  # (null)
+  #
+  duplicate_detection_template:
+  #
+  # edl_field_indexes:
+  #
+  # Dictionary used to define how to parsed values in the first line of each event
+  # in the EDL.
+  # Should contain the following keys:
+  # camroll
+  # clip_in
+  # clip_out
+  # id
+  # timecode_cut_in
+  # timecode_cut_out
+  #
+  # Default:
+  # {camroll: 1, clip_in: -2, clip_out: -1, id: 0, timecode_cut_in: -4,
+  #  timecode_cut_out: -3}
+  #
+  edl_field_indexes:
+    camroll: 1
+    clip_in: -2
+    clip_out: -1
+    id: 0
+    timecode_cut_in: -4
+    timecode_cut_out: -3
+  #
+  # edl_note_mappings:
+  #
+  # Dictionary used to define a mapping from EDL notes to Shotgun Version field names.
+  #
+  # Default:
+  # LOC: "code"
+  # FROM CLIP NAME: "source_clip"
+  # SOURCE FILE:
+  #     - "source_clip.SourceClip.sg_filename"
+  #     - "source_clip.SourceClip.sg_tape"
+  # ASC_SAT: "source_clip.SourceClip.sg_asc_sat"
+  # ASC_SOP: "source_clip.SourceClip.sg_asc_sop"
+  #
+  edl_note_mappings:
+    LOC: code
+    FROM CLIP NAME: source_clip
+    SOURCE FILE:
+    - source_clip.SourceClip.sg_filename
+    - source_clip.SourceClip.sg_tape
+    ASC_SAT: source_clip.SourceClip.sg_asc_sat
+    ASC_SOP: source_clip.SourceClip.sg_asc_sop
+  #
+  # enable_shot_creation:
+  #
+  # When set to true, parsed Shots will be created if needed and linked to
+  # created Versions. Otherwise only existing Shots will be linked.
+  # The shot name will be derived from the version_name_regexp setting. If
+  # no shot name can be parsed from the version name, no shot will be
+  # created
+  #
+  # Default:
+  # true
+  #
+  enable_shot_creation: true
+  #
+  # exclude_work_from_scan_handles:
+  #
+  # If set to true, it is assumed that the start and end timecodes are
+  # exclusive of handle frames, otherwise it is assumed that handles
+  # are included within the range.
+  # For example, if the start timecode is 01:00:00:10 and head is 5, then
+  # the timecode in value will be 01:00:00:05 and the timecode cut in
+  # value will be 01:00:00:10 when set to true, otherwise the timecode in
+  # value will be 01:00:00:10 and the timecode cut in will be 01:00:00:15.
+  #
+  # Default:
+  # false
+  #
+  exclude_work_from_scan_handles: false
+  #
+  # field_value_templates:
+  #
+  # Dictionary of fields and corresponding templates to parse input data
+  # for that field. Keys should correspond to a key in txt_file_header_associations.
+  #
+  # Example:
+  # {source_clip_name: source_clip_name_template}
+  #
+  # Default:
+  # {}
+  #
+  field_value_templates: {}
+  #
+  # max_upload_thread_count:
+  #
+  # Maximum number of threads to use when uploading Thumbnail images.
+  # Setting max_upload_thread_count to 1 will make the uploads sequential.
+  #
+  # Default:
+  # 20
+  #
+  # Since v0.5.0
+  #
+  max_upload_thread_count: 20
+  #
+  # match_source_clip:
+  #
+  # Dictionary of mappings to SourceClip fields to determine which SourceClip
+  # to link the new Version to.
+  # Values should correspond to keys provided in txt_file_header_associations
+  # or edl_note_mappings.
+  # If no match is found, a new SourceClip will be created.
+  #
+  # Default:
+  # source_clip_name: code
+  # tape: sg_tape
+  #
+  # Since v0.17.8
+  #
+  match_source_clip:
+    source_clip_name: code
+    tape: sg_tape
+  #
+  # sg_source_clip_entity:
+  #
+  # Entity type to use when setting Version's source_clip
+  #
+  # Default:
+  # SourceClip
+  #
+  sg_source_clip_entity: SourceClip
+  #
+  # Default value to use for Version's sg_version_type
+  #
+  # Default:
+  # Scan
+  #
+  sg_version_type_value: Scan
+  #
+  # shot_task_template:
+  #
+  # Task template entity to use when creating a new shot. Requires
+  # enable_shot_creation option to be set to true.
+  #
+  # Example:
+  # Vendor shot template
+  #
+  # Default:
+  # ''
+  #
+  shot_task_template: ''
+  #
+  # txt_file_header_associations
+  #
+  # Dictionary of fields paired with column headers from an imported
+  # text file. Each key should correspond to a Version field, and each
+  # value should be the corresponding column heading in the text file.
+  #
+  # The following keys are required:
+  # source_clip_name
+  # tape
+  # timecode_in or timecode_cut_in
+  # timecode_out or timecode_cut_out
+  # version_name (unless using a special version_name_template)
+  #
+  # The following keys are optional:
+  # user
+  # status
+  # head
+  # tail
+  # first_frame
+  # format
+  # version_type
+  #
+  # Additional text or number fields for Versions may also be used
+  #
+  # Example for when using a complex version_name_template:
+  # {head: Head, source_clip_name: Name,
+  #   tail: Tail, tape: Tape, timecode_cut_in: Start, timecode_cut_out: End,
+  #  sg_scan_vfx_number: VFX Number, sg_scan_element: Element, sg_scan_version_number: Scan Version}
+  #
+  # Default:
+  # {asc_sat: ASC_SAT, asc_sop: ASC_SOP, description: Comments,
+  #   first_frame: First Frame, format: Format, head: Head Duration, slate: Slate, source_clip_name: Source
+  #     Clip, tail: Tail Duration, tape: Tape, timecode_in: Start, timecode_out: End,
+  #   version_name: Version Name}
+  #
+  txt_file_header_associations:
+    asc_sat: ASC_SAT
+    asc_sop: ASC_SOP
+    description: Comments
+    first_frame: First Frame
+    format: Format
+    head: Head Duration
+    slate: Slate
+    source_clip_name: Source Clip
+    tail: Tail Duration
+    tape: Tape
+    timecode_in: Start
+    timecode_out: End
+    version_name: Version Name
+  #
+  # version_name_regexp:
+  #
+  # Regular expression for parsing Version name to populate the
+  # Version's Link field.
+  # Note: the default value assumes a version name in the form:
+  # {shot_name}_xx_01
+  # e.g. ab1234_bg_01
+  #
+  # Default:
+  # ^(?P<shot_name>[a-zA-Z]{2}[0-9]{4})(_[a-zA-Z0-9_]+)?
+  #
+  # Examples:
+  # As default but with a 13-character Shot name starting with 3 numbers, then an underscore, then 2 letters,
+  # then an underscore, then 4 numbers
+  # e.g. 123_AB_1234_bg_01
+  # ^(?P<shot_name>[0-9]{3}_[A-Za-z]{2}_[0-9]{4})(_[a-zA-Z0-9_]+)?
+  #
+  #
+  version_name_regexp: ^(?P<shot_name>[a-zA-Z]{2}[0-9]{4})(_[a-zA-Z0-9_]+)?
+  #
+  # version_name_template:
+  #
+  # Template to use to generate a version name during import.
+  # Note that each template part must have a corresponding key in
+  # txt_file_header_associations
+  #
+  # Default:
+  # import_scan_version_name
+  #
+  version_name_template: import_scan_version_name

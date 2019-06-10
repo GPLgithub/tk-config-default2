@@ -17,6 +17,7 @@ includes:
 - ./tk-multi-launchapp.yml
 - ./tk-multi-publish2.yml
 - ./tk-multi-screeningroom.yml
+- ../studio/apps.yml
 
 ################################################################################
 
@@ -24,7 +25,6 @@ includes:
 settings.tk-desktop.site:
   apps:
   location: "@engines.tk-desktop.location"
-
 
 # project
 settings.tk-desktop.project:
@@ -39,7 +39,25 @@ settings.tk-desktop.project:
     tk-multi-launchmotionbuilder: "@settings.tk-multi-launchapp.motionbuilder"
     tk-multi-publish2: "@settings.tk-multi-publish2.standalone"
     tk-multi-screeningroom: "@settings.tk-multi-screeningroom.rv"
+    tk-multi-createdelivery2: '@studio.apps.tk-multi-createdelivery2'
+    tk-multi-importcut: '@studio.apps.tk-multi-importcut'
+    tk-multi-importmedia: '@studio.apps.tk-multi-importmedia'
+    tk-multi-importscan: '@studio.apps.tk-multi-importscan'
+    tk-multi-ingestdelivery: '@studio.apps.tk-multi-ingestdelivery'
+    tk-shotgun-reportlab: '@studio.apps.tk-shotgun-reportlab'
+
+  collapse_rules:
+    - {button_label: $app, match: Launch $app, menu_label: None}
+
   groups:
+  - matches:
+    - '*Delivery*'
+    - '*Media*'
+    - '*Cut*'
+    - '*Scan*'
+    - '*Report*'
+    - '*Locator*'
+    name: GPL Tools
   - matches:
     - "*Fla*"
     - "*Houdini*"
@@ -55,4 +73,15 @@ settings.tk-desktop.project:
   - matches:
     - "*Hiero*"
     name: Editorial Tools
+  location: "@engines.tk-desktop.location"
+
+# site vendor
+settings.tk-desktop.site_vendor:
+  apps:
+  location: "@engines.tk-desktop.location"
+
+# vendor
+settings.tk-desktop.vendor:
+  apps:
+    tk-multi-createdelivery2: "@studio.apps.tk-multi-createdelivery2-vendor"
   location: "@engines.tk-desktop.location"

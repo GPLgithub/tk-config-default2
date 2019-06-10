@@ -1,0 +1,44 @@
+# Copyright (c) 2015 Shotgun Software Inc.
+#
+# CONFIDENTIAL AND PROPRIETARY
+#
+# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your
+# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
+# not expressly granted therein are reserved by Shotgun Software Inc.
+
+#
+# Copy Media app
+#
+tk-shotgun-copymedia:
+  location:
+    version: v0.4.5
+    type: git
+    path: git@github.com:GPLgithub/tk-shotgun-copymedia.git
+    disabled: false
+
+  # List of dictionaries with templates to define custom folder hierarchies for
+  # file destinations.
+  # display_name: The name of the template as displayed in the UI
+  # template: The template to use
+  # Example:
+  #  - display_name: "By Date/User"
+  #    template: copy_media_fs_date_user_version
+  custom_file_structure_templates: []
+
+  # List of fields on the Version to use for locating source media on disk
+  path_fields: [sg_path_to_frames, sg_path_to_movie]
+
+  # List of templates to use when determining how to "preserve" the file
+  # structure when that option is selected. Parts of the source path matching these
+  # templates will be removed, with all subfolders preserved.
+  path_root_templates: [delivery_root]
+
+  # When set to true, the source paths are determined by the Version's published_files
+  # paths instead of the fields defined in path_fields
+  use_published_files: false
+
+  # When set to true, smart cut fields will be used instead of cut fields when generating
+  # RV session files
+  use_smart_fields: true
