@@ -42,7 +42,6 @@ class PickEnvironment(Hook):
             if context.project is None:
                 # this happens when Desktop boots against a project-independent config
                 # but no project has been chosen yet
-                self.logger.info("Using site_vendor config")
                 self.logger.debug("Using site_vendor context")
                 return "site_vendor"
 
