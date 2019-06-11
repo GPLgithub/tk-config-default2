@@ -63,8 +63,6 @@ keys:
 
     Step:
         type: str
-    Asset:
-        type: str
     name:
         type: str
         filter_by: alphanumeric
