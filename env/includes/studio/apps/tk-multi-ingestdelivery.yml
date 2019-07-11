@@ -13,7 +13,7 @@
 #
 tk-multi-ingestdelivery:
   location:
-    version: v5.6.2
+    version: v5.8.2
     type: git
     path: git@github.com:GPLgithub/tk-multi-ingestdelivery.git
     disabled: false

@@ -29,6 +29,7 @@ includes:
 # naming conventions follow those from tk-config-basic
 studio.apps.tk-multi-createdelivery2: "@tk-multi-createdelivery2"
 studio.apps.tk-multi-createdelivery2-vendor: "@tk-multi-createdelivery2-vendor"
+studio.apps.tk-multi-createdelivery2-outgoing: "@tk-multi-createdelivery2-outgoing"
 studio.apps.tk-multi-importcut: "@tk-multi-importcut"
 studio.apps.tk-multi-importmedia: "@tk-multi-importmedia"
 studio.apps.tk-multi-importscan: "@tk-multi-importscan"

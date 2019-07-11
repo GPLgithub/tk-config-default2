@@ -13,7 +13,7 @@
 #
 tk-shotgun-reportlab:
   location:
-    version: v1.8.8
+    version: v1.8.9
     type: git
     path: git@github.com:GPLgithub/tk-shotgun-reportlab.git
     # tk-framework-imageutils needs to be enabled in frameworks.yml if

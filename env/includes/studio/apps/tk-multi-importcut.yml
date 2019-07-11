@@ -12,7 +12,7 @@
 #
 tk-multi-importcut:
   location:
-    version: v2.3.2
+    version: v2.3.5
     type: git
     path: git@github.com:GPLgithub/tk-multi-importcut.git
     disabled: true

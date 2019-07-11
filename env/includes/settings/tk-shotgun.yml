@@ -72,6 +72,7 @@ settings.tk-shotgun.version:
     tk-shotgun-copymedia-pf: '@studio.apps.tk-shotgun-copymedia-pf'
     tk-shotgun-reportlab: '@studio.apps.tk-shotgun-reportlab'
     tk-shotgun-revealinfinder: '@studio.apps.tk-shotgun-revealinfinder'
+    tk-multi-createdelivery2-outgoing: '@studio.apps.tk-multi-createdelivery2-outgoing'
   location: "@engines.tk-shotgun.location"
 
 # published file
@@ -125,4 +126,14 @@ settings.tk-shotgun.vendor:
 # site vendor
 settings.tk-shotgun.site_vendor:
   apps:
+  location: '@engines.tk-shotgun.location'
+
+# playlist
+settings.tk-shotgun.playlist:
+  apps:
+    tk-multi-requestscan: '@studio.apps.tk-multi-requestscan'
+    tk-shotgun-copymedia: '@studio.apps.tk-shotgun-copymedia'
+    tk-shotgun-copymedia-pf: '@studio.apps.tk-shotgun-copymedia-pf'
+    tk-shotgun-reportlab: '@studio.apps.tk-shotgun-reportlab'
+    tk-multi-createdelivery2-outgoing: '@studio.apps.tk-multi-createdelivery2-outgoing'
   location: '@engines.tk-shotgun.location'

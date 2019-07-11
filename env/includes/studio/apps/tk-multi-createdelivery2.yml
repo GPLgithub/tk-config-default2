@@ -14,7 +14,7 @@
 # Define a Yaml anchor used below to share settings with
 tk-multi-createdelivery2: &create_delivery2
   location:
-      version: v5.6.9
+      version: v5.8.2
       type: git
       path: git@github.com:GPLgithub/tk-multi-importmedia.git
       disabled: false
@@ -157,3 +157,11 @@ tk-multi-createdelivery2-vendor:
   # And tweak any setting
   enabled_transfer_types: [aspera, sftp, sneakernet]
 
+tk-multi-createdelivery2-outgoing:
+  # Inject the anchors defined above
+  <<: *create_delivery2
+  app_mode: create_outgoing_delivery
+  delivery_type: Outgoing Delivery
+  display_name: Create Outgoing Delivery
+  enabled_transfer_types: [aspera files, aspera package, aspera, sftp, sneakernet]
+  delivery_to: []
